@@ -15,13 +15,35 @@
                         http://www.springframework.org/schema/aop/spring-aop.xsd 
                         http://www.springframework.org/schema/tx 
                         http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <bean id="userDao" class="com.eichee.container.UserDAO"></bean>                   
+    <bean id="userService" class="com.eichee.container.UserService">
+    	<property name="userDao" ref="userDao"></property>
+    </bean>                    
+      
+      <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+      	<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+      	<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/springDemo?characterEncoding=UTF-8"></property>
+      	<property name="user" value="root"></property>
+      	<property name="password" value="root"></property>
+      </bean>                  
+    
+    <bean id="team" class="com.eichee.container.Team">
+    	<property name="members">
+    		<list>
+    			<value>丹丹</value>
+    			<value>建国 </value>
+    		</list>
+    	</property>
+    </bean>
+    
+    <bean id="user" class="com.eichee.container.User">
+    	<constructor-arg index="0" value="tom"></constructor-arg>
+    	<constructor-arg name="age" value="12"></constructor-arg>
+    </bean>
     
     <!-- <bean id="userService" class="com.eichee.container.UserService"></bean> -->
-    
-   <!--  <bean id="userServiceFactory" class="com.eichee.container.UserServiceFactory"></bean>
+   	<!--  <bean id="userServiceFactory" class="com.eichee.container.UserServiceFactory"></bean>
     <bean id="userService" factory-bean="userServiceFactory" factory-method="createUserService"></bean> -->
-    
-   
-    <bean id="userService" class="com.eichee.container.UserServiceStaticFactory" factory-method="createUserService"></bean>
+   	<!--  <bean id="userService" class="com.eichee.container.UserServiceStaticFactory" factory-method="createUserService"></bean> -->
     
 </beans>
